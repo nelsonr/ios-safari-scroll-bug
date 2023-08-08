@@ -24,6 +24,8 @@ body {
 }
 
 header {
+    display: flex;
+    align-items: center;
     grid-area: header;
     background-color: #FFF;
     height: 60px;
@@ -33,10 +35,15 @@ header {
     z-index: 1;
 }
 
+.header-content {
+    flex: 1;
+}
+
 main {
     grid-area: content;
     overflow-x: hidden;
     overflow-y: auto;
+    /* -webkit-overflow-scrolling: auto; */
 }
 
 .content {
@@ -99,4 +106,18 @@ nav ul li a {
 
 .hidden {
     display: none !important;
+}
+
+.group,
+label {
+    display: flex;
+    align-items: center;
+}
+
+.group-between {
+    justify-content: space-between;
+}
+
+label > input[type="checkbox"] {
+    margin-right: 8px;
 }

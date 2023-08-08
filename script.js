@@ -1,12 +1,19 @@
+function isSmoothScroll () {
+    const input = document.getElementById("use-smooth-scroll");
+
+    return input.checked;
+}
+
 function scrollToTop (el) {
-    el.scroll({
-        top: 0,
-        behavior: "instant"
+    el.scrollIntoView({
+        block: "start",
+        behavior: isSmoothScroll() ? "smooth" : "instant"
     });
 }
 
 function showScreen (screenId) {
     const screens = document.querySelectorAll(".screen");
+    const content = document.querySelectorAll(".content");
 
     screens.forEach((screen) => {
         if (screen.id == screenId.replace("#", "")) {
@@ -18,14 +25,14 @@ function showScreen (screenId) {
 }
 
 function handleNavClick (link) {
-    const scrollEl = document.querySelector("main");
+    const scrollEl = document.querySelector(".content");
 
     link.addEventListener("click", (ev) => {
         ev.preventDefault();
 
-        scrollToTop(scrollEl);
         showScreen(link.getAttribute("href"));
-    })
+        scrollToTop(scrollEl);
+    });
 }
 
 function navigation () {
