@@ -4,16 +4,24 @@ function isSmoothScroll () {
     return input.checked;
 }
 
-function scrollToTop (el) {
-    el.scrollIntoView({
-        block: "start",
-        behavior: isSmoothScroll() ? "smooth" : "instant"
-    });
+function scrollToTop () {
+    const scrollContainer = document.querySelector("main");
+    const scrollableContent = document.querySelector(".content");
+
+    if (isSmoothScroll()) {
+        scrollableContent.scrollIntoView({
+            block: "start",
+            behavior: "smooth"
+        });
+    } else {
+        scrollContainer.style = "overflow: hidden;"
+        scrollContainer.scrollTop = 0;
+        scrollContainer.style = null;
+    }
 }
 
 function showScreen (screenId) {
     const screens = document.querySelectorAll(".screen");
-    const content = document.querySelectorAll(".content");
 
     screens.forEach((screen) => {
         if (screen.id == screenId.replace("#", "")) {
@@ -25,13 +33,11 @@ function showScreen (screenId) {
 }
 
 function handleNavClick (link) {
-    const scrollEl = document.querySelector(".content");
-
     link.addEventListener("click", (ev) => {
         ev.preventDefault();
 
-        showScreen(link.getAttribute("href"));
-        scrollToTop(scrollEl);
+        showScreen(link.getAttribute("href"))
+        scrollToTop();
     });
 }
 
